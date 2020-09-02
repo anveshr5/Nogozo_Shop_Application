@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Nogozo Shop Application</string>
+
+    <string-array name="cities">
+        <item>Select Your City</item>
+        <item>Agra</item>
+        <item>Delhi</item>
+        <item>Gwalior</item>
+        <item>Lucknow</item>
+    </string-array>
+
+    <string-array name="placeholder">
+        <item>Fetching Data…</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

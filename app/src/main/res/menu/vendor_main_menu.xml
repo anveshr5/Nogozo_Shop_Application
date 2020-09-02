@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_vendor_edit"
+        android:title="Edit Inventory"
+        />
+
+    <item
+        android:id="@+id/menu_vendor_history"
+        android:title="Past Orders"
+        />
+
+</menu>
