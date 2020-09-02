@@ -1,131 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/vendor_stats_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="24sp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/colorPrimaryLight"
-        android:text="Monthly Status"/>
-
-    <LinearLayout
-        android:id="@+id/selectYearMonthLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vendor_stats_header"
-        android:weightSum="10">
-
-        <Spinner
-            android:id="@+id/spinnerYear"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:layout_margin="5dp"/>
-        <Spinner
-            android:id="@+id/spinnerMonth"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:visibility="gone"
-            android:layout_margin="5dp" />
-
-        <Button
-            android:id="@+id/getSelectedStats"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:visibility="gone"
-            android:text="Show"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/monthYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectYearMonthLayout">
+        android:elevation="10dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/list_item_stats_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Select Year and Month"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/list_item_stats_orders"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="0"
-            android:textColor="@color/green"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_item_stats_month" />
+            <TextView
+                android:id="@+id/vendor_stats_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Monthly Status"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/list_item_stats_orders_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="orders completed"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/list_item_stats_orders"
-            app:layout_constraintStart_toEndOf="@id/list_item_stats_orders" />
+            <LinearLayout
+                android:id="@+id/selectYearMonthLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vendor_stats_header">
 
-        <TextView
-            android:id="@+id/list_item_stats_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="0"
-            android:textColor="@color/green"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_item_stats_orders" />
+                <Spinner
+                    android:id="@+id/spinnerYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3.5" />
 
-        <TextView
-            android:id="@+id/list_item_stats_amount_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="of orders completed"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/list_item_stats_amount"
-            app:layout_constraintStart_toEndOf="@id/list_item_stats_amount" />
+                <Spinner
+                    android:id="@+id/spinnerMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="4"
+                    android:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/getSelectedStats"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="Show"
+                    android:visibility="gone" />
+            </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/monthYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selectYearMonthLayout">
+
+                <TextView
+                    android:id="@+id/list_item_stats_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Select Year and Month"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/list_item_stats_orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/list_item_stats_month" />
+
+                <TextView
+                    android:id="@+id/list_item_stats_orders_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="orders completed"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/list_item_stats_orders"
+                    app:layout_constraintStart_toEndOf="@id/list_item_stats_orders" />
+
+                <TextView
+                    android:id="@+id/list_item_stats_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/list_item_stats_orders" />
+
+                <TextView
+                    android:id="@+id/list_item_stats_amount_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="of orders completed"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/list_item_stats_amount"
+                    app:layout_constraintStart_toEndOf="@id/list_item_stats_amount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vendor_stats_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthYear" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
