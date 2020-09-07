@@ -15,9 +15,9 @@ class CurrentStatusFragmentViewModel: ViewModel() {
     val sessionManager = SessionManager()
     val database = Database()
     private val shopStatus: MediatorLiveData<String> = MediatorLiveData()
-    private val deliveryStatus: MediatorLiveData<String> = MediatorLiveData()
+//    private val deliveryStatus: MediatorLiveData<String> = MediatorLiveData()
 
-    fun getCurrentDeliveryStatus(){
+/*    fun getCurrentDeliveryStatus(){
         database.getDeliveryStatus(sessionManager.getUserId()).addValueEventListener(object:
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -43,10 +43,9 @@ class CurrentStatusFragmentViewModel: ViewModel() {
             else if(status == "Not Delivering")
                 status = "Delivering"
         }
-        Log.d("vididid", status)
         database.changeDeliveryStatus(sessionManager.getUserId(), status)
     }
-
+*/
     fun getCurrentShopStatus(){
         database.getShopStatus(sessionManager.getUserId()).addValueEventListener(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {

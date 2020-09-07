@@ -10,6 +10,7 @@ object Constants {
 
     const val PROFILE_LEVEL_0 = "0"
     const val PROFILE_LEVEL_1 = "1"
+    const val PROFILE_LEVEL_2 = "2"
 
     const val TOKEN = "token"
     const val USER_ID = "userid"

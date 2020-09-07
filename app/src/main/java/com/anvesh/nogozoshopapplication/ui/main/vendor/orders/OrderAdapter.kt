@@ -1,6 +1,5 @@
 package com.anvesh.nogozoshopapplication.ui.main.vendor.orders
 
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.nogozoshopapplication.R
 import com.anvesh.nogozoshopapplication.datamodels.Order
 import com.anvesh.nogozoshopapplication.network.Database
-import com.anvesh.nogozoshopapplication.util.Constants.userType_CUSTOMER
 import com.anvesh.nogozoshopapplication.util.OrderByStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +18,7 @@ import kotlinx.coroutines.withContext
 
 class OrderAdapter(
     private val showPackedButton: Boolean = false,
-    private val comparator: Comparator<Order> = OrderByStatus(),
-    private val userType: String = userType_CUSTOMER
+    private val comparator: Comparator<Order> = OrderByStatus()
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
     private var orderList: ArrayList<Order> = ArrayList()
@@ -41,7 +38,11 @@ class OrderAdapter(
         holder.shopName.text = orderList[position].shopname
         holder.dateTime.text = "${orderList[position].date} on ${orderList[position].time}"
         holder.customerName.text = orderList[position].customername
-        holder.price.text = "₹${orderList[position].price}"
+        if (orderList[position].deliverycharges != "0")
+            holder.price.text =
+                "₹${orderList[position].itemprice} + ₹${orderList[position].deliverycharges}(Delivery Charges)"
+        else
+            holder.price.text = "₹${orderList[position].itemprice}"
 
         holder.instruction.text = orderList[position].shopinstruction
 
@@ -72,65 +73,60 @@ class OrderAdapter(
 
         holder.orderId.text = orderList[position].orderId
 
+
+
         if (orderList[position].delivery == "Yes") {
-            if (showPackedButton) {
-                when (orderList[position].status) {
-                    "0" -> {
-                        holder.markedPacked.text = "Mark Packed"
-                        holder.status.text = "New Order"
-                        holder.markedPacked.visibility = View.VISIBLE
-                    }
-                    "1" -> {
-                        holder.status.text = "Delivery Executive will pickup Order"
-                        holder.markedPacked.text = "Mark Delivered"
-                    }
-                    "2" -> {
-                        holder.markedPacked.text = "Mark Delivered"
-                        holder.status.text = "Out for delivery"
-                    }
-                    "3" -> {
-                        holder.markedPacked.visibility = View.GONE
-                        holder.status.text = "Delivered"
-                    }
+            when (orderList[position].status) {
+                "0" -> {
+                    holder.btnCancelOrder.visibility = View.VISIBLE
+                    holder.markedPacked.text = "Mark Packed"
+                    holder.status.text = "New Order"
+                    holder.markedPacked.visibility = View.VISIBLE
                 }
-            } else {
-                holder.markedPacked.visibility = View.GONE
-                if (orderList[position].status == "0")
-                    holder.status.text = "Packing Your Order"
-                else if (orderList[position].status == "1")
-                    holder.status.text = "Delivery Executive reaching to Shop"
-                else if (orderList[position].status == "2")
-                    holder.status.text = "Out For Delivery"
-                else if (orderList[position].status == "3")
+                "1" -> {
+                    holder.btnCancelOrder.visibility = View.VISIBLE
+                    holder.status.text = "Delivery Executive will pickup Order"
+                    holder.markedPacked.text = "Mark Delivered"
+                }
+                "2" -> {
+                    holder.btnCancelOrder.visibility = View.VISIBLE
+                    holder.markedPacked.text = "Mark Delivered"
+                    holder.status.text = "Out for delivery"
+                }
+                "3" -> {
+                    holder.markedPacked.visibility = View.GONE
                     holder.status.text = "Delivered"
+                    holder.btnCancelOrder.visibility = View.GONE
+                }
+                "-1" -> {
+                    holder.markedPacked.visibility = View.GONE
+                    holder.status.text = "Order Cancelled"
+                    holder.btnCancelOrder.visibility = View.GONE
+                }
             }
         } else {
-            if (showPackedButton) {
-                when (orderList[position].status) {
-                    "0" -> {
-                        holder.status.text = "New Order"
-                        holder.markedPacked.visibility = View.VISIBLE
-                        holder.markedPacked.text = "Mark Packed"
-                    }
-                    "1" -> {
-                        holder.markedPacked.text = "Mark Done"
-                        holder.status.text = "Customer will pickup the order"
-                    }
-                    "3" -> {
-                        holder.markedPacked.visibility = View.GONE
-                        holder.status.text = "Completed"
-                    }
+            when (orderList[position].status) {
+                "0" -> {
+                    holder.btnCancelOrder.visibility = View.VISIBLE
+                    holder.status.text = "New Order"
+                    holder.markedPacked.visibility = View.VISIBLE
+                    holder.markedPacked.text = "Mark Packed"
                 }
-            } else {
-                holder.markedPacked.visibility = View.GONE
-                if (orderList[position].status == "0")
-                    holder.status.text = "Packing Your Order"
-                else if (orderList[position].status == "1")
-                    holder.status.text = "Please pickup your order"
-                else if (orderList[position].status == "2")
-                    holder.status.text = "Out For Delivery"
-                else if (orderList[position].status == "3")
-                    holder.status.text = "Completed"
+                "1" -> {
+                    holder.btnCancelOrder.visibility = View.VISIBLE
+                    holder.markedPacked.text = "Mark Done"
+                    holder.status.text = "Customer will pickup the order"
+                }
+                "3" -> {
+                    holder.markedPacked.visibility = View.GONE
+                    holder.status.text = "Picked Up"
+                    holder.btnCancelOrder.visibility = View.GONE
+                }
+                "-1" -> {
+                    holder.markedPacked.visibility =View.GONE
+                    holder.status.text = "Order Cancelled"
+                    holder.status.visibility = View.GONE
+                }
             }
         }
     }
@@ -167,53 +163,69 @@ class OrderAdapter(
 
         val markedPacked: TextView =
             itemView.findViewById(R.id.list_item_current_order_markpacked_button)
+        val btnCancelOrder: TextView =
+            itemView.findViewById(R.id.list_item_current_order_cancel_button)
 
         init {
             markedPacked.setOnClickListener(this)
+            btnCancelOrder.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            if (v!!.id == R.id.list_item_current_order_markpacked_button) {
-                if (orderList[adapterPosition].delivery == "Yes") {
-                    if (orderList[adapterPosition].status == "0") {
-                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "2")
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    orderList[adapterPosition].status = "2"
-                                    notifyDataSetChanged()
+            when (v!!.id) {
+                R.id.list_item_current_order_markpacked_button -> {
+                    if (orderList[adapterPosition].delivery == "Yes") {
+                        if (orderList[adapterPosition].status == "0") {
+                            Database().markedOrderPacked(orderList[adapterPosition].orderkey, "2")
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        orderList[adapterPosition].status = "2"
+                                        notifyDataSetChanged()
+                                    }
                                 }
-                            }
-                    } else if (orderList[adapterPosition].status == "1") {
-                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "2")
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    orderList[adapterPosition].status = "2"
-                                    notifyDataSetChanged()
+                        } else if (orderList[adapterPosition].status == "1") {
+                            Database().markedOrderPacked(orderList[adapterPosition].orderkey, "2")
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        orderList[adapterPosition].status = "2"
+                                        notifyDataSetChanged()
+                                    }
                                 }
-                            }
-                    } else if (orderList[adapterPosition].status == "2") {
-                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "3")
-                            .addOnCompleteListener {
-                                if(it.isSuccessful){
-                                    orderList[adapterPosition].status = "3"
-                                    notifyDataSetChanged()
+                        } else if (orderList[adapterPosition].status == "2") {
+                            Database().markedOrderPacked(orderList[adapterPosition].orderkey, "3")
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        orderList[adapterPosition].status = "3"
+                                        notifyDataSetChanged()
+                                    }
                                 }
-                            }
+                        }
+                    } else {
+                        if (orderList[adapterPosition].status == "0") {
+                            Database().markedOrderPacked(orderList[adapterPosition].orderkey, "1")
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        orderList[adapterPosition].status = "1"
+                                        notifyDataSetChanged()
+                                    }
+                                }
+                        } else if (orderList[adapterPosition].status == "1") {
+                            Database().markedOrderPacked(orderList[adapterPosition].orderkey, "3")
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        orderList[adapterPosition].status = "3"
+                                        notifyDataSetChanged()
+                                    }
+                                }
+                        }
                     }
-                } else {
-                    if (orderList[adapterPosition].status == "0") {
-                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "1")
+                }
+                R.id.list_item_current_order_cancel_button -> {
+                    if (orderList[adapterPosition].status != "3" || orderList[adapterPosition].status != "-1") {
+                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "-1")
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    orderList[adapterPosition].status = "1"
-                                    notifyDataSetChanged()
-                                }
-                            }
-                    } else if (orderList[adapterPosition].status == "1") {
-                        Database().markedOrderPacked(orderList[adapterPosition].orderkey, "3")
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    orderList[adapterPosition].status = "3"
+                                    orderList[adapterPosition].status = "-1"
                                     notifyDataSetChanged()
                                 }
                             }

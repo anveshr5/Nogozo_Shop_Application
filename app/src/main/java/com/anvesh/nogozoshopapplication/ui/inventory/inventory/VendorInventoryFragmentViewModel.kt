@@ -60,6 +60,7 @@ class VendorInventoryFragmentViewModel
                                 data2["itemMRP"],
                                 data2["quantity"],
                                 data2["itemimageurl"],
+                                data2["itemGroup"],
                                 data2["isAvailable"] == "true"
                             )
                             items.add(item)
@@ -101,6 +102,7 @@ class VendorInventoryFragmentViewModel
                                 data2["itemMRP"],
                                 data2["quantity"],
                                 data2["itemimageurl"],
+                                data2["itemGroup"],
                                 data2["isAvailable"] == "true"
                             )
                             if (search != null && search != "") {

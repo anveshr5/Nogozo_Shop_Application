@@ -16,8 +16,8 @@ class CurrentStatusFragment : BaseFragment(R.layout.fragment_current_status), Vi
     lateinit var sessionManager: SessionManager
     lateinit var viewModel: CurrentStatusFragmentViewModel
 
-    private lateinit var deliveryStatusTag: TextView
-    private lateinit var deliveryStatus: TextView
+    //private lateinit var deliveryStatusTag: TextView
+    //private lateinit var deliveryStatus: TextView
     //private lateinit var deliveryPower: ImageButton
     private lateinit var shopStatus: TextView
     private lateinit var power: ImageButton
@@ -26,8 +26,8 @@ class CurrentStatusFragment : BaseFragment(R.layout.fragment_current_status), Vi
 
         sessionManager = SessionManager()
 
-        deliveryStatusTag = view.findViewById(R.id.currentorder_vendor_delivery_header)
-        deliveryStatus = view.findViewById(R.id.currentorder_vendor_delivery_status)
+        //deliveryStatusTag = view.findViewById(R.id.currentorder_vendor_delivery_header)
+        //deliveryStatus = view.findViewById(R.id.currentorder_vendor_delivery_status)
         //deliveryPower = view.findViewById(R.id.currentorder_vendor_delivery_power)
         //deliveryPower.setOnClickListener(this)
 
@@ -41,11 +41,11 @@ class CurrentStatusFragment : BaseFragment(R.layout.fragment_current_status), Vi
         )[CurrentStatusFragmentViewModel::class.java]
 
         getCurrentShopStatus()
-        getCurrentDeliveryStatus()
+        //getCurrentDeliveryStatus()
 
     }
 
-    private fun getCurrentDeliveryStatus() {
+/*    private fun getCurrentDeliveryStatus() {
         viewModel.getDeliveryStatusLiveData().removeObservers(viewLifecycleOwner)
         viewModel.getDeliveryStatusLiveData().observe(viewLifecycleOwner, Observer {
             if (it == "Delivering") {
@@ -62,7 +62,7 @@ class CurrentStatusFragment : BaseFragment(R.layout.fragment_current_status), Vi
         })
         viewModel.getCurrentDeliveryStatus()
     }
-
+*/
     private fun getCurrentShopStatus() {
         viewModel.getStatusLiveData().removeObservers(viewLifecycleOwner)
         viewModel.getStatusLiveData().observe(viewLifecycleOwner, Observer {

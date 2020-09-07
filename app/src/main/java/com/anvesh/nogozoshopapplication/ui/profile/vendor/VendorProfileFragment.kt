@@ -10,6 +10,7 @@ import com.anvesh.nogozoshopapplication.R
 import com.anvesh.nogozoshopapplication.datamodels.VendorProfile
 import com.anvesh.nogozoshopapplication.ui.BaseFragment
 import com.anvesh.nogozoshopapplication.ui.main.DataResource
+import org.w3c.dom.Text
 
 class VendorProfileFragment: BaseFragment(R.layout.fragment_profile_vendor) {
 
@@ -26,6 +27,8 @@ class VendorProfileFragment: BaseFragment(R.layout.fragment_profile_vendor) {
     private lateinit var shopArea: TextView
     private lateinit var shopAddress: TextView
     private lateinit var shopPincode: TextView
+    private lateinit var shopBusinessType: TextView
+    private lateinit var shopDeliveryStatus: TextView
     private lateinit var shopDeliveryCharges: TextView
     private lateinit var shopMinAmountFreeDelivery: TextView
 
@@ -39,7 +42,9 @@ class VendorProfileFragment: BaseFragment(R.layout.fragment_profile_vendor) {
         shopCity = view.findViewById(R.id.vendor_profile_shop_city)
         shopArea = view.findViewById(R.id.vendor_profile_shop_area)
         shopAddress = view.findViewById(R.id.vendor_profile_shop_address)
+        shopBusinessType = view.findViewById(R.id.vendor_profile_home_business_pincode)
         shopPincode = view.findViewById(R.id.vendor_profile_shop_pincode)
+        shopDeliveryStatus = view.findViewById(R.id.vendor_profile_shop_delivery_status)
         shopDeliveryCharges = view.findViewById(R.id.vendor_profile_shop_delivery_chargers)
         shopMinAmountFreeDelivery = view.findViewById(R.id.vendor_profile_shop_min_delivery_amount)
 
@@ -74,7 +79,9 @@ class VendorProfileFragment: BaseFragment(R.layout.fragment_profile_vendor) {
         shopCity.text = profile.cityname
         shopArea.text = profile.areaname
         shopAddress.text = profile.address
-        shopPincode.text = profile.pincode
+        shopPincode.text = profile.areaid
+        shopBusinessType.text = profile.homebusiness
+        shopDeliveryStatus.text = profile.deliverystatus
         shopDeliveryCharges.text = profile.deliverycharges
         shopMinAmountFreeDelivery.text = profile.deliveryminorder
     }

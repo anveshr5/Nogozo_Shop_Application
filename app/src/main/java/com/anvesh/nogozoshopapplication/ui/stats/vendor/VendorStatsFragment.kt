@@ -15,6 +15,8 @@ import com.anvesh.nogozoshopapplication.ui.main.DataResource
 import com.anvesh.nogozoshopapplication.ui.stats.StatsAdapter
 import com.anvesh.nogozoshopapplication.util.Helper
 import com.anvesh.nogozoshopapplication.util.VerticalSpacingItemDecoration
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
 
@@ -28,7 +30,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
 
     lateinit var spinnerYear: Spinner
     lateinit var spinnerMonth: Spinner
-    lateinit var getSelectedStats: Button
+    lateinit var btnGetSelectedStats: Button
     private lateinit var month: TextView
     private lateinit var orders: TextView
     private lateinit var amount: TextView
@@ -40,9 +42,24 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
 
     private var vendorStatsArray = arrayListOf<VendorStats>()
 
-    private var itemListMonths = arrayListOf<String>("Month")
-
+    private var itemListMonths = arrayListOf<String>()
+    private var itemListAllMonths = arrayListOf(
+        "Month",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    )
     private var itemListYear = arrayListOf<String>("Year")
+    private var isStatsAvailable = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -53,7 +70,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
 
         spinnerYear = view.findViewById(R.id.spinnerYear)
         spinnerMonth = view.findViewById(R.id.spinnerMonth)
-        getSelectedStats = view.findViewById(R.id.getSelectedStats)
+        btnGetSelectedStats = view.findViewById(R.id.getSelectedStats)
         month = view.findViewById(R.id.list_item_stats_month)
         orders = view.findViewById(R.id.list_item_stats_orders)
         amount = view.findViewById(R.id.list_item_stats_amount)
@@ -62,7 +79,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
         initRecycler()
         subscribeObserver()
         viewModel.getStats()
-        getSelectedStats.setOnClickListener {
+        btnGetSelectedStats.setOnClickListener {
             getSelectedStats()
         }
     }
@@ -84,14 +101,14 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
                 keyYear = parent?.getItemAtPosition(position) as String
                 if (position != 0 && keyYear != "Overall") {
                     getMonthsOfYear()
-                    getKeyMonth()
+                    //getKeyMonth()
                 } else if (keyYear == "Overall") {
                     displayOverallStats()
-                    getSelectedStats.visibility = View.GONE
+                    btnGetSelectedStats.visibility = View.GONE
                     spinnerMonth.visibility = View.GONE
                     keyMonth = ""
                 } else {
-                    getSelectedStats.visibility = View.GONE
+                    btnGetSelectedStats.visibility = View.GONE
                     spinnerMonth.visibility = View.GONE
                     keyMonth = ""
                 }
@@ -120,7 +137,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
         val monthAdapter = ArrayAdapter(
             context!!.applicationContext,
             android.R.layout.simple_list_item_1,
-            itemListMonths
+            itemListAllMonths
         )
         spinnerMonth.adapter = monthAdapter
         spinnerMonth.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -133,9 +150,9 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
                 val monthName = parent?.getItemAtPosition(position) as String
                 keyMonth = Helper.getMonthNumber(monthName)
                 if (position != 0) {
-                    getSelectedStats.visibility = View.VISIBLE
+                    btnGetSelectedStats.visibility = View.VISIBLE
                 } else {
-                    getSelectedStats.visibility = View.GONE
+                    btnGetSelectedStats.visibility = View.GONE
                 }
             }
 
@@ -148,16 +165,23 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
     private fun getSelectedStats() {
         val key = keyYear + keyMonth
         var monthlyStats: VendorStats = VendorStats("196801", "-1", "-1", "Some Problem Occurred")
-        vendorStatsArray.forEach {
-            if (it.id == key) {
-                Log.d("MonthlyStat", it.toString())
-                monthlyStats = it
+        if (itemListMonths.contains(Helper.getMonthString(keyMonth))) {
+            vendorStatsArray.forEach {
+                if (it.id == key) {
+                    Log.d("MonthlyStat", it.toString())
+                    monthlyStats = it
+                }
             }
-        }
 
-        month.text = monthlyStats.month + " - ${keyYear}"
-        orders.text = monthlyStats.total_orders
-        amount.text = "₹${monthlyStats.total_amount}"
+            month.text = monthlyStats.month + " - ${keyYear}"
+            orders.text = monthlyStats.total_orders
+            amount.text = "₹${monthlyStats.total_amount}"
+
+        } else {
+            month.text = Helper.getMonthString(keyMonth) + "-$keyYear"
+            orders.text = "0"
+            amount.text = "₹0"
+        }
     }
 
     private fun initRecycler() {
@@ -165,6 +189,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
         recyclerView.addItemDecoration(VerticalSpacingItemDecoration(16))
         adapter = StatsAdapter()
         recyclerView.adapter = adapter
+        setUpInitialViews()
     }
 
     private fun subscribeObserver() {
@@ -176,6 +201,7 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
                     adapter.setData(dataResource.data)
                     setUpYearAndMonthList()
                     calcOverAllStats()
+                    setUpInitialViews()
                 }
                 DataResource.Status.ERROR -> {
                     // show error
@@ -187,11 +213,35 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
         })
     }
 
+    private fun setUpInitialViews() {
+        keyYear = Calendar.getInstance().get(Calendar.YEAR).toString()
+        keyMonth = (Calendar.getInstance().get(Calendar.MONTH)+1).toString()
+        Log.d("mont", keyMonth)
+        keyMonth = "0$keyMonth"
+        keyMonth = keyMonth.takeLast(2)
+
+        val key = keyYear + keyMonth
+        var monthlyStats: VendorStats = VendorStats("196801", "-1", "-1", "Some Problem Occurred")
+        Log.d("mont", vendorStatsArray.toString())
+        vendorStatsArray.forEach {
+            if (it.id == key) {
+                Log.d("MonthlyStat", it.toString())
+                monthlyStats = it
+                month.text = monthlyStats.month + " - ${keyYear}"
+                orders.text = monthlyStats.total_orders
+                amount.text = "₹${monthlyStats.total_amount}"
+                isStatsAvailable = true
+            } else if (!isStatsAvailable){
+                month.text = Helper.getMonthString(keyMonth) + "-$keyYear"
+                orders.text = "0"
+                amount.text = "₹0"
+            }
+        }
+    }
     private fun setUpYearAndMonthList() {
         itemListYear.clear()
         itemListYear.add("Year")
         itemListYear.add("Overall")
-        Log.d("Stats", "Requested")
         vendorStatsArray.forEach {
             if (!itemListYear.contains(it.id.take(4))) {
                 itemListYear.add(it.id.take(4))
@@ -202,7 +252,6 @@ class VendorStatsFragment : BaseFragment(R.layout.fragment_stats_vendor) {
 
     private fun getMonthsOfYear() {
         itemListMonths.clear()
-        itemListMonths.add("Month")
         vendorStatsArray.forEach {
             if (it.id.take(4) == keyYear) {
                 itemListMonths.add(it.month)

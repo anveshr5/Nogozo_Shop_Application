@@ -7,7 +7,7 @@ class OrderByYearAndMonth : Comparator<VendorStats> {
         if (o1 == null || o2 == null)
             return 0
         return if (o1.id.take(4) == o2.id.take(4)) {
-            o2.id.takeLast(2).compareTo(o1.id.takeLast(2))
+            o1.id.takeLast(2).compareTo(o2.id.takeLast(2))
         } else {
             o1.id.take(4).compareTo(o2.id.take(4))
         }

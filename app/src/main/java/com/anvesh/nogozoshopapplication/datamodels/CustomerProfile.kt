@@ -8,8 +8,10 @@ data class CustomerProfile(
     var email: String? = "",
     var phone: String? = "",
     var profilelevel: String? = "",
+    var shopname: String? = "",
     var cityname: String? = "",
     var cityid: String? = "",
+    var pincode: String? = "",
     var areaname: String? = "",
     var areaid: String? = "",
     var address: String? = ""){
@@ -27,6 +29,8 @@ data class CustomerProfile(
                 && this.phone == other.phone
                 && this.cityname == other.cityname
                 && this.cityid == other.cityid
+                && this.shopname == other.shopname
+                && this.pincode == other.pincode
                 && this.areaname == other.areaname
                 && this.areaid == other.areaid
                 && this.address == other.address){

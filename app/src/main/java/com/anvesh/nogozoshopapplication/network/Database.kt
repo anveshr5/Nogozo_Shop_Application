@@ -28,6 +28,13 @@ class Database {
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile")
     }
 
+    fun getNewUserProfile(): DatabaseReference {
+
+        return FirebaseDatabase.getInstance().reference
+            .child("users").child("newshop")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile")
+    }
+
     fun setUserProfile(userType: String, map: HashMap<String, Any>): Task<Void> {
         val ref = FirebaseDatabase.getInstance().reference
             .child("users").child(userType)
@@ -77,6 +84,16 @@ class Database {
     fun getItemById(shopId: String, itemId: String): DatabaseReference {
         return FirebaseDatabase.getInstance().reference
             .child("items").child(shopId).child(itemId)
+    }
+
+    fun getItemGroups(shopId: String): DatabaseReference {
+        return FirebaseDatabase.getInstance().getReference("itemgroups/$shopId")
+    }
+
+    fun createItemGroup(shopId: String, newItemGroup: String): Task<Void> {
+        val itemGroupId = FirebaseDatabase.getInstance().reference.child("itemgroups").child(shopId).push().key!!
+
+        return  FirebaseDatabase.getInstance().reference.child("itemgroups").child(shopId).child(itemGroupId).setValue(newItemGroup)
     }
 
     fun changeItemAvailabilityStatus(
@@ -154,12 +171,12 @@ class Database {
             .setValue(status)
     }
 
-    fun changeDeliveryStatus(shopId: String, status: String): Task<Void> {
-        return FirebaseDatabase.getInstance().reference
-            .child("users").child(userType_VENDOR)
-            .child(shopId).child("deliverystatus")
-            .setValue(status)
-    }
+//    fun changeDeliveryStatus(shopId: String, status: String): Task<Void> {
+//        return FirebaseDatabase.getInstance().reference
+//            .child("users").child(userType_VENDOR)
+//            .child(shopId).child("deliverystatus")
+//            .setValue(status)
+//    }
 
     fun getShopStats(shopId: String): DatabaseReference {
         return FirebaseDatabase.getInstance().reference

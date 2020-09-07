@@ -8,10 +8,10 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:elevation="10dp"
         app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Monthly Status"
+                android:text="Monthly Stats"
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,16 +45,14 @@
                     android:id="@+id/spinnerYear"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="3.5" />
 
                 <Spinner
                     android:id="@+id/spinnerMonth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="4"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <Button
                     android:id="@+id/getSelectedStats"
@@ -94,19 +92,19 @@
                     android:text="0"
                     android:textColor="@color/green"
                     android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/list_item_stats_orders_header"
                     app:layout_constraintTop_toBottomOf="@id/list_item_stats_month" />
 
                 <TextView
                     android:id="@+id/list_item_stats_orders_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="orders completed"
+                    android:layout_margin="4dp"
+                    android:text="Total Orders: "
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@id/list_item_stats_orders"
-                    app:layout_constraintStart_toEndOf="@id/list_item_stats_orders" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/list_item_stats_amount"
@@ -116,19 +114,19 @@
                     android:text="0"
                     android:textColor="@color/green"
                     android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/list_item_stats_amount_header"
                     app:layout_constraintTop_toBottomOf="@id/list_item_stats_orders" />
 
                 <TextView
                     android:id="@+id/list_item_stats_amount_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="of orders completed"
+                    android:layout_margin="4dp"
+                    android:text="Total amount:"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@id/list_item_stats_amount"
-                    app:layout_constraintStart_toEndOf="@id/list_item_stats_amount" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

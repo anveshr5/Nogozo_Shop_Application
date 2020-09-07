@@ -26,6 +26,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.FirebaseApp
 import com.anvesh.nogozoshopapplication.ui.main.MainActivity
 import com.anvesh.nogozoshopapplication.ui.userdetails.UserDetailsActivity
+import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL_2
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -95,6 +96,12 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
                             startActivity(i)
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                         }else if(profileLevel == PROFILE_LEVEL_1){
+                            val i = Intent(this@SplashActivity, UserDetailsActivity::class.java)
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            i.putExtra(USER_TYPE, userType_VENDOR)
+                            startActivity(i)
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                        } else if(profileLevel == PROFILE_LEVEL_2){
                             val i = Intent(this@SplashActivity, MainActivity::class.java)
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             i.putExtra(USER_TYPE, userType_VENDOR)

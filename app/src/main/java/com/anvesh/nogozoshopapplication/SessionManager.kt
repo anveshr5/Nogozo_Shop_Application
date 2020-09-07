@@ -18,6 +18,8 @@ import com.anvesh.nogozoshopapplication.util.Constants.PHONE
 import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL
 import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL_0
 import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL_1
+import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL_2
+import com.anvesh.nogozoshopapplication.util.Constants.SHOP_NAME
 import com.anvesh.nogozoshopapplication.util.Constants.USER_TYPE
 import com.anvesh.nogozoshopapplication.util.Constants.userType_VENDOR
 import com.google.android.gms.tasks.Task
@@ -102,6 +104,10 @@ class SessionManager
         return database.getUserProfile(userType_VENDOR)
     }
 
+    fun getNewUserProfile(): DatabaseReference {
+        return database.getNewUserProfile()
+    }
+
     fun getUserName(): String {
         return preferences.getString(NAME, "")!!
     }
@@ -116,7 +122,7 @@ class SessionManager
 
     fun saveProfileToLocal(profile: CustomerProfile) {
         CoroutineScope(Dispatchers.Default).launch {
-            editPreferences.putString(PROFILE_LEVEL, PROFILE_LEVEL_1).apply()
+            editPreferences.putString(PROFILE_LEVEL, PROFILE_LEVEL_2).apply()
             editPreferences.putString(EMAIL, profile.email).apply()
             editPreferences.putString(CITY_ID, profile.cityid).apply()
             editPreferences.putString(CITY_NAME, profile.cityname).apply()
@@ -134,19 +140,23 @@ class SessionManager
 
     fun saveCustomerProfileToLocal(map: HashMap<String, Any>) {
         CoroutineScope(Dispatchers.Default).launch {
+            var email = FirebaseAuth.getInstance().currentUser!!.email
             editPreferences.putString(PROFILE_LEVEL, PROFILE_LEVEL_1).apply()
-            editPreferences.putString(CITY_ID, map["cityid"] as String).apply()
-            editPreferences.putString(CITY_NAME, map["cityname"] as String).apply()
-            editPreferences.putString(AREA_ID, map["areaid"] as String).apply()
-            editPreferences.putString(AREA_NAME, map["areaname"] as String).apply()
+            //editPreferences.putString(CITY_ID, map["cityid"] as String).apply()
+            //editPreferences.putString(CITY_NAME, map["cityname"] as String).apply()
+            //editPreferences.putString(AREA_ID, map["areaid"] as String).apply()
+            //editPreferences.putString(AREA_NAME, map["areaname"] as String).apply()
             editPreferences.putString(NAME, map["name"] as String).apply()
-            editPreferences.putString(ADDRESS, map["address"] as String).apply()
+            //editPreferences.putString(ADDRESS, map["address"] as String).apply()
             editPreferences.putString(PHONE, map["phone"] as String).apply()
+            //editPreferences.putString(EMAIL,map["email"] as String).apply()
+            editPreferences.putString(SHOP_NAME, map["shopname"] as String).apply()
 
-            currentSessionData[AREA_NAME] = map["areaname"] as String
-            currentSessionData[AREA_ID] = map["areaid"] as String
-            currentSessionData[CITY_NAME] = map["cityname"] as String
-            currentSessionData[CITY_ID] = map["cityid"] as String
+            editPreferences.putString(EMAIL, email).apply()
+            //currentSessionData[AREA_NAME] = map["areaname"] as String
+            //currentSessionData[AREA_ID] = map["areaid"] as String
+            //currentSessionData[CITY_NAME] = map["cityname"] as String
+            //currentSessionData[CITY_ID] = map["cityid"] as String
         }
     }
 

@@ -8,7 +8,7 @@
         android:id="@+id/editinventory_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:text="Add New Item"
         android:textSize="32sp"
         android:textColor="@color/colorAccent"
@@ -105,6 +105,29 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/editinventory_item_group_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editinventory_quantity_wrapper">
+
+        <TextView
+            android:id="@+id/editinventory_item_group_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawableEnd="@drawable/ic_greater_symbol"
+            android:text="Select A Group"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+
     <Button
         android:id="@+id/editinventory_imagebutton"
         android:layout_width="wrap_content"
@@ -112,7 +135,7 @@
         android:layout_margin="8dp"
         android:text="Upload Image(Optional)"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editinventory_quantity_wrapper"/>
+        app:layout_constraintTop_toBottomOf="@+id/editinventory_item_group_wrapper" />
 
     <ImageView
         android:id="@+id/editinventory_imageview"

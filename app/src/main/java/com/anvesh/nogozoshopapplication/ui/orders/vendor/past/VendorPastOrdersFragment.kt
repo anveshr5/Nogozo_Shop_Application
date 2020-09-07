@@ -53,7 +53,7 @@ class VendorPastOrdersFragment: BaseFragment(R.layout.fragment_orders) {
     private fun initRecycler(){
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(VerticalSpacingItemDecoration(16))
-        adapter = OrderAdapter(userType = userType_VENDOR)
+        adapter = OrderAdapter()
         recyclerView.adapter = adapter
     }
 

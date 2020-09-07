@@ -14,4 +14,5 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_vendor_header_sign_up">Welcome to Nogozo! To register as a merchant in Nogozo, fill the details below and we will contact you within 48 hours</string>
 </resources>

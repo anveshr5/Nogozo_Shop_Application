@@ -55,7 +55,7 @@ class VendorCurrentOrdersFragment(
     }
 
     private fun initRecycler(){
-        adapter = OrderAdapter(true, OrderByStatus(), userType_VENDOR)
+        adapter = OrderAdapter(true, OrderByStatus())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(VerticalSpacingItemDecoration(16))
         recyclerView.adapter = adapter

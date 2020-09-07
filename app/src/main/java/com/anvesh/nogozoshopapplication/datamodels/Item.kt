@@ -9,6 +9,7 @@ data class Item(
     var itemMRP: String? = "0",
     var itemQuantity: String? = "0",
     var itemImageUrl: String? = "",
+    var itemGroup: String? ="",
     var isAvailable: Boolean? = true
 ): Serializable {
 
@@ -23,6 +24,7 @@ data class Item(
                 && o.itemName == this.itemName
                 && o.itemPrice == this.itemPrice
                 && o.itemMRP == this.itemMRP
+                && o.itemGroup == this.itemGroup
                 && o.itemQuantity == this.itemQuantity
                 && o.isAvailable == this.isAvailable)
                 return true

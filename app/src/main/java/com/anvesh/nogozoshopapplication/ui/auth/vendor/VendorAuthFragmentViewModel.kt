@@ -7,7 +7,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.database.DatabaseReference
 import com.anvesh.nogozoshopapplication.util.Constants.userType_VENDOR
-import javax.inject.Inject
 
 class VendorAuthFragmentViewModel
 //@Inject constructor(
@@ -24,6 +23,10 @@ class VendorAuthFragmentViewModel
         return sessionManager.getUserProfile()
     }
 
+    fun getNewUserProfile(): DatabaseReference {
+        return sessionManager.getNewUserProfile()
+    }
+
     fun saveProfileToLocal(profile: CustomerProfile){
         sessionManager.saveProfileToLocal(profile)
     }
@@ -34,5 +37,13 @@ class VendorAuthFragmentViewModel
 
     fun uploadToken(token: String){
         sessionManager.uploadToken(token)
+    }
+
+    fun register(email: String, password: String): Task<AuthResult> {
+        return sessionManager.register(email, password)
+    }
+
+    fun saveOnRegistered(email: String) {
+        sessionManager.saveOnRegistered(email, userType_VENDOR)
     }
 }

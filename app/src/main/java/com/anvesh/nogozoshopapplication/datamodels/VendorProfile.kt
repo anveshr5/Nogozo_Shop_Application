@@ -12,8 +12,9 @@ data class VendorProfile(
     var cityid: String? = "",
     var areaname: String? = "",
     var areaid: String? = "",
-    var pincode: String? = "",
     var address: String? = "",
+    var homebusiness: String? = "",
+    var deliverystatus: String? = "Not delivering",
     var shopname: String? = "",
     var deliverycharges: String? = "",
     var deliveryminorder: String? = ""

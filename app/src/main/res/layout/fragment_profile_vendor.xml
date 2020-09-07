@@ -126,6 +126,7 @@
             android:textSize="20sp"
             android:drawableStart="@drawable/ic_directions"
             android:textColor="@color/black"
+            android:maxLines="3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shop_address_header"/>
 
@@ -150,13 +151,53 @@
             app:layout_constraintTop_toBottomOf="@+id/shop_pincode_header" />
 
         <TextView
+            android:id="@+id/shop_home_business_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Business type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vendor_profile_shop_pincode" />
+
+        <TextView
+            android:id="@+id/vendor_profile_home_business_pincode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:drawableStart="@drawable/ic_business_type"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shop_home_business_header" />
+
+        <TextView
+            android:id="@+id/shop_delivery_status_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Delivery: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vendor_profile_home_business_pincode" />
+
+        <TextView
+            android:id="@+id/vendor_profile_shop_delivery_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:drawableStart="@drawable/ic_delivery"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shop_delivery_status_header" />
+
+        <TextView
             android:id="@+id/shop_delivery_charges_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delivery Charges"
             android:layout_margin="16dp"
+            android:text="Delivery Charges"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vendor_profile_shop_pincode"/>
+            app:layout_constraintTop_toBottomOf="@+id/vendor_profile_shop_delivery_status" />
 
         <TextView
             android:id="@+id/vendor_profile_shop_delivery_chargers"
