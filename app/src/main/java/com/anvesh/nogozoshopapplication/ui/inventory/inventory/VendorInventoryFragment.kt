@@ -19,8 +19,10 @@ import com.anvesh.nogozoshopapplication.datamodels.Item
 import com.anvesh.nogozoshopapplication.ui.BaseFragment
 import com.anvesh.nogozoshopapplication.ui.inventory.InventoryCommunicator
 import com.anvesh.nogozoshopapplication.ui.main.DataResource
+import com.anvesh.nogozoshopapplication.util.ItemComparator
 import com.anvesh.nogozoshopapplication.util.VerticalSpacingItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
 class VendorInventoryFragment(private val communicator: InventoryCommunicator) :
     BaseFragment(R.layout.fragment_inventory),
@@ -107,6 +109,10 @@ class VendorInventoryFragment(private val communicator: InventoryCommunicator) :
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
                 DataResource.Status.SUCCESS -> {
+                    val list = it.data
+                    Log.d("list", list.toString())
+                    Collections.sort(list,ItemComparator())
+                    Log.d("list2", list.toString())
                     progressBar.visibility = View.GONE
                     adapter.setDataList(it.data)
                 }

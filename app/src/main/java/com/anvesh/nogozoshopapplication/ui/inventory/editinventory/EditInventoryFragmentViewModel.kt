@@ -61,7 +61,7 @@ class EditInventoryFragmentViewModel
                             }
                         }
                         list = list1
-                        list1.add(ItemGroup("+1","Add New Item"))
+                        list1.add(ItemGroup("+1","Add New Group"))
                         itemGroups.postValue(CityResource.success(list1))
                     }
                 }
@@ -76,7 +76,7 @@ class EditInventoryFragmentViewModel
 
     fun createNewItem(context: Context,newItemGroupName: String) {
         list.forEach {
-            if (it.groupName.trimEnd().compareTo(newItemGroupName.trimEnd(), true) != 0) {
+            if (it.groupName.trimEnd().compareTo(newItemGroupName.trimEnd(), true) == 0) {
                 Toast.makeText(context, "The group already exists!", Toast.LENGTH_SHORT).show()
                 return
             }
