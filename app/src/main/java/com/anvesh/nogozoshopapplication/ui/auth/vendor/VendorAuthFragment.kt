@@ -186,7 +186,7 @@ class VendorAuthFragment : BaseFragment(R.layout.fragment_auth_vendor_signin),
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
             if (Helper.isValidEmail(email)) {
-                if (password.length >= 6) {        //change
+                if (password.length > 6) {        //change
                     val task = viewModel.register(email, password)
                     task.addOnCompleteListener {
                         if (task.isSuccessful) {

@@ -45,7 +45,7 @@ class Database {
 
     fun setUserProfileOnRegistered(userType: String, profile: CustomerProfile) {
         val ref = FirebaseDatabase.getInstance().reference
-            .child("users").child(userType)
+            .child("users").child("newshop")
             .child(FirebaseAuth.getInstance().currentUser!!.uid).child("profile")
 
         val map: HashMap<String, Any> = HashMap()

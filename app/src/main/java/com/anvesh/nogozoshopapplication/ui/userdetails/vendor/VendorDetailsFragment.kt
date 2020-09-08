@@ -59,8 +59,8 @@ class VendorDetailsFragment : BaseFragment(R.layout.fragment_userdetails_vendor)
             if (it == PROFILE_LEVEL_1) {
                 getNewShopDetails()
             } else if(it == PROFILE_LEVEL_0) {
-                confirmButton.visibility = View.INVISIBLE
-
+                progressBar.visibility = View.GONE
+                confirmButton.visibility = View.VISIBLE
             }
         })
         viewModel.getUserProfileLevel()
@@ -130,7 +130,10 @@ class VendorDetailsFragment : BaseFragment(R.layout.fragment_userdetails_vendor)
 
         viewModel.setUserProfile(map).addOnCompleteListener {
             if (it.isSuccessful) {
-                viewModel.saveProfileToLocal(map)
+                Toast.makeText(activity as Context, "Profile details Updated", Toast.LENGTH_SHORT).show()
+                //viewModel.saveProfileToLocal(map)
+            } else if (!it.isSuccessful){
+                Toast.makeText(activity as Context, "Some error occurred try again later", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -138,9 +141,10 @@ class VendorDetailsFragment : BaseFragment(R.layout.fragment_userdetails_vendor)
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.vendor_userdetails_confirm_button -> {
+                progressBar.visibility = View.VISIBLE
                 if (shopownernameField.text!!.isNotEmpty()) {
                     if (shopnameField.text!!.isNotEmpty()) {
-                        if (!Helper.isPhoneNumber(phoneField.text.toString())) {
+                        if (phoneField.text!!.toString().length == 10 || phoneField.text.toString().contentEquals("1234567890")) {
                             updateUserProfile()
                         } else {
                             showError("valid mobile number")
@@ -151,6 +155,7 @@ class VendorDetailsFragment : BaseFragment(R.layout.fragment_userdetails_vendor)
                 } else {
                     showError("your name")
                 }
+                progressBar.visibility =View.GONE
             }
         }
     }
