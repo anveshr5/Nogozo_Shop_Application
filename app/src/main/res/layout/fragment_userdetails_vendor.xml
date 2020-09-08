@@ -98,7 +98,6 @@
         android:layout_margin="20dp"
         android:drawableEnd="@drawable/ic_check"
         android:text="CONFIRM"
-        android:visibility="gone"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

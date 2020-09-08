@@ -78,15 +78,20 @@ class VendorAuthFragment : BaseFragment(R.layout.fragment_auth_vendor_signin),
             R.id.vendor_login_button -> {
                 if (viewType == viewType_SIGNIN)
                     login()
-                else if (viewType == viewType_SIGNUP)
-                    animate()
+                //else if (viewType == viewType_SIGNUP)
+                //    animate()
             }
             R.id.vendor_signup_button -> {
-                if (viewType == viewType_SIGNUP) {
-                    register()
-                } else if (viewType == viewType_SIGNIN) {
-                    animate()
-                }
+                val i = Intent(context, UserDetailsActivity::class.java)
+                i.putExtra(USER_TYPE, userType_VENDOR)
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(i)
+
+                //if (viewType == viewType_SIGNUP) {
+                //    register()
+                //} else if (viewType == viewType_SIGNIN) {
+                //    animate()
+                //}
             }
         }
     }
@@ -216,7 +221,7 @@ class VendorAuthFragment : BaseFragment(R.layout.fragment_auth_vendor_signin),
         }
     }
 
-    private fun animate() {
+/*    private fun animate() {
 
         viewType = if (viewType == viewType_SIGNIN) viewType_SIGNUP else viewType_SIGNIN
 
@@ -278,7 +283,7 @@ class VendorAuthFragment : BaseFragment(R.layout.fragment_auth_vendor_signin),
         constraint.applyTo(cc1)
 
     }
-
+*/
     private fun showToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
