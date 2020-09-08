@@ -1,14 +1,11 @@
 package com.anvesh.nogozoshopapplication.ui.inventory.inventory
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,10 +16,8 @@ import com.anvesh.nogozoshopapplication.datamodels.Item
 import com.anvesh.nogozoshopapplication.ui.BaseFragment
 import com.anvesh.nogozoshopapplication.ui.inventory.InventoryCommunicator
 import com.anvesh.nogozoshopapplication.ui.main.DataResource
-import com.anvesh.nogozoshopapplication.util.ItemComparator
 import com.anvesh.nogozoshopapplication.util.VerticalSpacingItemDecoration
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.*
 
 class VendorInventoryFragment(private val communicator: InventoryCommunicator) :
     BaseFragment(R.layout.fragment_inventory),
@@ -109,10 +104,6 @@ class VendorInventoryFragment(private val communicator: InventoryCommunicator) :
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
                 DataResource.Status.SUCCESS -> {
-                    val list = it.data
-                    Log.d("list", list.toString())
-                    Collections.sort(list,ItemComparator())
-                    Log.d("list2", list.toString())
                     progressBar.visibility = View.GONE
                     adapter.setDataList(it.data)
                 }
