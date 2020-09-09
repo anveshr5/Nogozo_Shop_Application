@@ -78,54 +78,59 @@ class OrderAdapter(
         if (orderList[position].delivery == "Yes") {
             when (orderList[position].status) {
                 "0" -> {
-                    holder.btnCancelOrder.visibility = View.VISIBLE
                     holder.markedPacked.text = "Mark Packed"
                     holder.status.text = "New Order"
                     holder.markedPacked.visibility = View.VISIBLE
+                    holder.btnCancelOrder.visibility = View.VISIBLE
                 }
                 "1" -> {
-                    holder.btnCancelOrder.visibility = View.VISIBLE
                     holder.status.text = "Delivery Executive will pickup Order"
                     holder.markedPacked.text = "Mark Delivered"
+                    holder.markedPacked.visibility = View.VISIBLE
+                    holder.btnCancelOrder.visibility = View.VISIBLE
                 }
                 "2" -> {
-                    holder.btnCancelOrder.visibility = View.VISIBLE
-                    holder.markedPacked.text = "Mark Delivered"
                     holder.status.text = "Out for delivery"
+                    holder.markedPacked.text = "Mark Delivered"
+                    holder.markedPacked.visibility = View.VISIBLE
+                    holder.btnCancelOrder.visibility = View.VISIBLE
                 }
                 "3" -> {
-                    holder.markedPacked.visibility = View.GONE
                     holder.status.text = "Delivered"
+                    holder.markedPacked.visibility = View.GONE
                     holder.btnCancelOrder.visibility = View.GONE
                 }
                 "-1" -> {
-                    holder.markedPacked.visibility = View.GONE
                     holder.status.text = "Order Cancelled"
+                    holder.markedPacked.visibility = View.GONE
                     holder.btnCancelOrder.visibility = View.GONE
                 }
             }
         } else {
             when (orderList[position].status) {
                 "0" -> {
-                    holder.btnCancelOrder.visibility = View.VISIBLE
                     holder.status.text = "New Order"
-                    holder.markedPacked.visibility = View.VISIBLE
                     holder.markedPacked.text = "Mark Packed"
+                    holder.markedPacked.visibility = View.VISIBLE
+                    holder.btnCancelOrder.visibility = View.VISIBLE
                 }
                 "1" -> {
-                    holder.btnCancelOrder.visibility = View.VISIBLE
-                    holder.markedPacked.text = "Mark Done"
                     holder.status.text = "Customer will pickup the order"
+                    holder.markedPacked.text = "Mark Done"
+                    holder.markedPacked.visibility = View.VISIBLE
+                    holder.btnCancelOrder.visibility = View.VISIBLE
                 }
                 "3" -> {
-                    holder.markedPacked.visibility = View.GONE
                     holder.status.text = "Picked Up"
+                    holder.status.visibility = View.VISIBLE
+                    holder.markedPacked.visibility = View.GONE
                     holder.btnCancelOrder.visibility = View.GONE
                 }
                 "-1" -> {
-                    holder.markedPacked.visibility =View.GONE
                     holder.status.text = "Order Cancelled"
-                    holder.status.visibility = View.GONE
+                    holder.status.visibility = View.VISIBLE
+                    holder.markedPacked.visibility =View.GONE
+                    holder.btnCancelOrder.visibility = View.GONE
                 }
             }
         }

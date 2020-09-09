@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.anvesh.nogozoshopapplication.R
 import com.anvesh.nogozoshopapplication.ui.BaseFragment
-import com.anvesh.nogozoshopapplication.ui.ViewModelFactory
 import com.anvesh.nogozoshopapplication.ui.main.DataResource
 import com.anvesh.nogozoshopapplication.ui.main.vendor.orders.OrderAdapter
-import com.anvesh.nogozoshopapplication.util.Constants.userType_VENDOR
 import com.anvesh.nogozoshopapplication.util.VerticalSpacingItemDecoration
 
 class VendorPastOrdersFragment: BaseFragment(R.layout.fragment_orders) {

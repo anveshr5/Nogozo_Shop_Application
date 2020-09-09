@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +13,6 @@ import androidx.viewpager.widget.ViewPager
 import com.anvesh.nogozoshopapplication.R
 import com.anvesh.nogozoshopapplication.SessionManager
 import com.anvesh.nogozoshopapplication.ui.BaseActivity
-import com.anvesh.nogozoshopapplication.ui.ViewModelFactory
 import com.anvesh.nogozoshopapplication.ui.auth.AuthActivity
 import com.anvesh.nogozoshopapplication.ui.auth.AuthResource
 import com.anvesh.nogozoshopapplication.util.Constants.PROFILE_LEVEL_0
